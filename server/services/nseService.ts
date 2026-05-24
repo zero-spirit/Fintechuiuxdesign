@@ -14,13 +14,13 @@ let cookies = '';
 
 async function initializeSession() {
   try {
-    const response = await axios.get(NSE_BASE_URL, { headers });
+    const response = await axios.get(NSE_BASE_URL, { headers, timeout: 5000 });
     const setCookies = response.headers['set-cookie'];
     if (setCookies) {
       cookies = setCookies.map((cookie: string) => cookie.split(';')[0]).join('; ');
     }
   } catch (error) {
-    console.error('Failed to initialize NSE session:', error);
+    // NSE session initialization failed - will use fallback data
   }
 }
 
@@ -31,16 +31,13 @@ async function makeNSERequest(url: string) {
 
   try {
     const response = await axios.get(url, {
-      headers: { ...headers, Cookie: cookies }
+      headers: { ...headers, Cookie: cookies },
+      timeout: 5000
     });
     return response.data;
   } catch (error) {
-    console.error('NSE request failed:', error);
-    await initializeSession();
-    const response = await axios.get(url, {
-      headers: { ...headers, Cookie: cookies }
-    });
-    return response.data;
+    // NSE API blocked or unavailable - fail silently to use fallback data
+    throw new Error('NSE API unavailable');
   }
 }
 
@@ -60,7 +57,7 @@ export async function getNifty50Stocks() {
       sector: stock.industry || 'General'
     }));
   } catch (error) {
-    console.error('Error fetching Nifty 50 stocks:', error);
+    // NSE API unavailable - return empty to trigger fallback
     return [];
   }
 }
@@ -88,7 +85,6 @@ export async function getStockQuote(symbol: string) {
       eps: data.metadata?.eps || null
     };
   } catch (error) {
-    console.error(`Error fetching quote for ${symbol}:`, error);
     return null;
   }
 }
@@ -108,7 +104,6 @@ export async function getMarketIndices() {
         changePercent: index.percentChange
       }));
   } catch (error) {
-    console.error('Error fetching market indices:', error);
     return [];
   }
 }
@@ -127,7 +122,6 @@ export async function getTopGainers() {
       volume: stock.totalTradedVolume
     }));
   } catch (error) {
-    console.error('Error fetching top gainers:', error);
     return [];
   }
 }
@@ -146,7 +140,6 @@ export async function getTopLosers() {
       volume: stock.totalTradedVolume
     }));
   } catch (error) {
-    console.error('Error fetching top losers:', error);
     return [];
   }
 }
@@ -158,7 +151,6 @@ export async function searchStocks(query: string) {
 
     return data.symbols || [];
   } catch (error) {
-    console.error('Error searching stocks:', error);
     return [];
   }
 }

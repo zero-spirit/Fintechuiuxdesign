@@ -1,0 +1,86 @@
+   at settle (file:///home/kali/Downloads/AniAMc/node_modules/.pnpm/axios@1.16.1/node_modules/axios/lib/core/settle.js:19:12)
+[0]     at IncomingMessage.handleStreamEnd (file:///home/kali/Downloads/AniAMc/node_modules/.pnpm/axios@1.16.1/node_modules/axios/lib/adapters/http.js:1139:13)
+[0]     at IncomingMessage.emit (node:events:531:35)
+[0]     at endReadableNT (node:internal/streams/readable:1698:12)
+[0]     at process.processTicksAndRejections (node:internal/process/task_queues:89:21)
+[0]     at Axios.request (file:///home/kali/Downloads/AniAMc/node_modules/.pnpm/axios@1.16.1/node_modules/axios/lib/core/Axios.js:46:41)
+[0]     at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+[0]     at async makeNSERequest (/home/kali/Downloads/AniAMc/server/services/nseService.ts:33:22)
+[0]     at async getNifty50Stocks (/home/kali/Downloads/AniAMc/server/services/nseService.ts:50:18)
+[0]     at async <anonymous> (/home/kali/Downloads/AniAMc/server/routes/stocks.ts:14:20) {
+[0]   isAxiosError: true,
+[0]   code: 'ERR_BAD_REQUEST',
+[0]   config: [Object: null prototype] {
+[0]     transitional: {
+[0]       silentJSONParsing: true,
+[0]       forcedJSONParsing: true,
+[0]       clarifyTimeoutError: false,
+[0]       legacyInterceptorReqResOrdering: true
+[0]     },
+[0]     adapter: [ 'xhr', 'http', 'fetch' ],
+[0]     transformRequest: [ [Function: transformRequest] ],
+[0]     transformResponse: [ [Function: transformResponse] ],
+[0]     timeout: 0,
+[0]     xsrfCookieName: 'XSRF-TOKEN',
+[0]     xsrfHeaderName: 'X-XSRF-TOKEN',
+[0]     maxContentLength: -1,
+[0]     maxBodyLength: -1,
+[0]     env: { FormData: [Function], Blob: [class Blob] },
+[0]     validateStatus: [Function: validateStatus],
+[0]     headers: Object [AxiosHeaders] {
+[0]       Accept: 'application/json, text/plain, */*',
+[0]       'Content-Type': undefined,
+[0]       'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+[0]       'Accept-Language': 'en-US,en;q=0.9',
+[0]       Referer: 'https://www.nseindia.com/',
+[0]       Cookie: '_abck=7270EAA4C0254AFEE5AC10F65EC26CAE~-1~YAAQnGnTFyEzZj6eAQAAMCp1WA/JaLstg7rafgbuTfoZ3zFldGG8ITw0a+/fbUbE2JooO0XrwJxXRkvElmUB5JduxrhAsTteFiaw/Gj1l2YLo8v9LUOTFZ9zwEVLRgZgRAWGKU4OSwlYFedChxdDBijh1G8R/GtKaF3pge+BkbmC1jljEcmusbRg0yLjWIWmpo4mvWO0fpgjFvEXmgvEJta5TZtbVH0IhovM1j04qObQyxAALcPa5MqxfIYZ67JftiDXCG9UEczhNn7X16kxybx3rQd36UquQwTMc9PCh1OaS2TmHf58zpLEAObrcK0h88rtMU75ZocfTQ03dSBT1IPUyXaEITYt0Z+7EhKPgYgp7JRVA6XfxYufUBtegny8ymD8UY51SSEon7KwnV475byTfIL0XEh1VnX3kZyDAhVoW17oxcl93H0TtAGCegGFVyeOkfAtPw==~-1~-1~-1~-1~-1; ak_bmsc=EB1D0E6BFF158669500AFA93B22D26B6~000000000000000000000000000000~YAAQnGnTFyIzZj6eAQAAMCp1WB9K7OkXLCRbchI+5GG/UwUycKoiBAHknbUS+TYgrx/hCF7uPboB0W130FdPvUOmMpmaJQINU8bztNktScI2NKOqmdElxciv+FlqIWzlrXWYtmhBQ9RW7Zr/1tzssf1pB4OeU7g9xSiTSD9xVs2bu9i1g1AZNiLc+bXbIRWzNXakDRA9IayuJgeQWAnxx6NBAWJHA2YbnNnb3l7v6q12AwDQdFeZmsmOw/4im9iMb9eHO/faJkk2ZZhWJVDHeJuZpKQnmxUrjqru2gWvpearu77p3GoS+QPkqwzVUKfiTQ8dSqQzokNS46qslUpCCDRVjwMozULtbPdnDCc=; bm_mi=95932FAC51D1A4F941C9B7DC0AA5CD9D~YAAQnGnTFyMzZj6eAQAAMCp1WB9GrfHjOTvEK1Ek1k58gqYJz+rhFu+LWQHvXtBI+lqZpcaY2v6tW12Q9+43AgM11g0iZBqWwHgK4ac7egu8PJYlPJOg941L0I9vFlhnmgRuSymPv9vONLacdODWRSX75aKOLMMuSmoBkhmbg1CzG3SNM/4y/BiJovkvp9RdHEQnKh9xyTgkXlmwFnMGa6ABQ8BwlASUrUU2fk61tTZi+l8HS1zr3ADEoTSc4//9NdIoI500lNG7LNoWK2wAPgrvvlhwloUvn8+FyQdMaKEwG/XNCenrWaoA6WNzpcKi~1; bm_sz=BA9A22631FE96888568C980287318321~YAAQnGnTFyQzZj6eAQAAMCp1WB9Srik4QKX9tQp3p4deXo/W80PhYJ2VNXMJWHk5WddaXlUFkGp8jxSAy9Mo5dIufIDEaemJ5XSfUViWHmaXxebruKLtqU72oPA0Ef/8jtIquYwQYKmu9V77STTEQEdkChXE4ogjFHMRPUUNTtpu29o/lKj+69UF8cxg1sDcexFyx3av2BTAJrh0M6zmnUVIQh9MB8XZ8U+SiGCLVjQlhwP7oQ9x8cugxkNqgpBLOGcmY/cHWY/XpNyP5MkvORoTUC8CDqn44geUq1Nk61oeq9YR0esJLgSDjmTqJSZAn6kkBH/2XI5DO2HIswtLwKMvethiyzrpllgmXA==~3159091~4605505',                                                                                                                                
+[0]       'Accept-Encoding': 'gzip, compress, deflate, br'
+[0]     },
+[0]     method: 'get',
+[0]     url: 'https://www.nseindia.com/api/equity-stockIndices?index=NIFTY%2050',
+[0]     allowAbsoluteUrls: true,
+[0]     data: undefined
+[0]   },
+[0]   request: <ref *1> ClientRequest {
+[0]     _events: [Object: null prototype] {
+[0]       abort: [Function (anonymous)],
+[0]       aborted: [Function (anonymous)],
+[0]       connect: [Function (anonymous)],
+[0]       error: [Function (anonymous)],
+[0]       socket: [Function (anonymous)],
+[0]       timeout: [Function (anonymous)],
+[0]       finish: [Function: requestOnFinish]
+[0]     },
+[0]     _eventsCount: 7,
+[0]     _maxListeners: undefined,
+[0]     outputData: [],
+[0]     outputSize: 0,
+[0]     writable: true,
+[0]     destroyed: true,
+[0]     _last: true,
+[0]     chunkedEncoding: false,
+[0]     shouldKeepAlive: true,
+[0]     maxRequestsOnConnectionReached: false,
+[0]     _defaultKeepAlive: true,
+[0]     useChunkedEncodingByDefault: false,
+[0]     sendDate: false,
+[0]     _removedConnection: false,
+[0]     _removedContLen: false,
+[0]     _removedTE: false,
+[0]     strictContentLength: false,
+[0]     _contentLength: 0,
+[0]     _hasBody: true,
+[0]     _trailer: '',
+[0]     finished: true,
+[0]     _headerSent: true,
+[0]     _closed: true,
+[0]     _header: 'GET /api/equity-stockIndices?index=NIFTY%2050 HTTP/1.1\r\n' +
+[0]       'Accept: application/json, text/plain, */*\r\n' +
+[0]       'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36\r\n' +
+[0]       'Accept-Language: en-US,en;q=0.9\r\n' +
+[0]       'Referer: https://www.nseindia.com/\r\n' +
+[0]       'Cookie: _abck=7270EAA4C0254AFEE5AC10F65EC26CAE~-1~YAAQnGnTFyEzZj6eAQAAMCp1WA/JaLstg7rafgbuTfoZ3zFldGG8ITw0a+/fbUbE2JooO0XrwJxXRkvElmUB5JduxrhAsTteFiaw/Gj1l2YLo8v9LUOTFZ9zwEVLRgZgRAWGKU4OSwlYFedChxdDBijh1G8R/GtKaF3pge+BkbmC1jljEcmusbRg0yLjWIWmpo4mvWO0fpgjFvEXmgvEJta5TZtbVH0IhovM1j04qObQyxAALcPa5MqxfIYZ67JftiDXCG9UEczhNn7X16kxybx3rQd36UquQwTMc9PCh1OaS2TmHf58zpLEAObrcK0h88rtMU75ZocfTQ03dSBT1IPUyXaEITYt0Z+7EhKPgYgp7JRVA6XfxYufUBtegny8ymD8UY51SSEon7KwnV475byTfIL0XEh1VnX3kZyDAhVoW17oxcl93H0TtAGCegGFVyeOkfAtPw==~-1~-1~-1~-1~-1; ak_bmsc=EB1D0E6BFF158669500AFA93B22D26B6~000000000000000000000000000000~YAAQnGnTFyIzZj6eAQAAMCp1WB9K7OkXLCRbchI+5GG/UwUycKoiBAHknbUS+TYgrx/hCF7uPboB0W130FdPvUOmMpmaJQINU8bztNktScI2NKOqmdElxciv+FlqIWzlrXWYtmhBQ9RW7Zr/1tzssf1pB4OeU7g9xSiTSD9xVs2bu9i1g1AZNiLc+bXbIRWzNXakDRA9IayuJgeQWAnxx6NBAWJHA2YbnNnb3l7v6q12AwDQdFeZmsmOw/4im9iMb9eHO/faJkk2ZZhWJVDHeJuZpKQnmxUrjqru2gWvpearu77p3GoS+QPkqwzVUKfiTQ8dSqQzokNS46qslUpCCDRVjwMozULtbPdnDCc=; bm_mi=95932FAC51D1A4F941C9B7DC0AA5CD9D~YAAQnGnTFyMzZj6eAQAAMCp1WB9GrfHjOTvEK1Ek1k58gqYJz+rhFu+LWQHvXtBI+lqZpcaY2v6tW12Q9+43AgM11g0iZBqWwHgK4ac7egu8PJYlPJOg941L0I9vFlhnmgRuSymPv9vONLacdODWRSX75aKOLMMuSmoBkhmbg1CzG3SNM/4y/BiJovkvp9RdHEQnKh9xyTgkXlmwFnMGa6ABQ8BwlASUrUU2fk61tTZi+l8HS1zr3ADEoTSc4//9NdIoI500lNG7LNoWK2wAPgrvvlhwloUvn8+FyQdMaKEwG/XNCenrWaoA6WNzpcKi~1; bm_sz=BA9A22631FE96888568C980287318321~YAAQnGnTFyQzZj6eAQAAMCp1WB9Srik4QKX9tQp3p4deXo/W80PhYJ2VNXMJWHk5WddaXlUFkGp8jxSAy9Mo5dIufIDEaemJ5XSfUViWHmaXxebruKLtqU72oPA0Ef/8jtIquYwQYKmu9V77STTEQEdkChXE4ogjFHMRPUUNTtpu29o/lKj+69UF8cxg1sDcexFyx3av2BTAJrh0M6zmnUVIQh9MB8XZ8U+SiGCLVjQlhwP7oQ9x8cugxkNqgpBLOGcmY/cHWY/XpNyP5MkvORoTUC8CDqn44geUq1Nk61oeq9YR0esJLgSDjmTqJSZAn6kkBH/2XI5DO2HIswtLwKMvethiyzrpllgmXA==~3159091~4605505\r\n' +                                                                                                                           
+[0]       'Accept-Encoding: gzip, compress, deflate, br\r\n' +
+[0]       'Host: www.nseindia.com\r\n' +
+[0]       'Connection: keep-alive\r\n' +
+[0]       '\r\n',
