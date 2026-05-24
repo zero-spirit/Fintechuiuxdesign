@@ -2,26 +2,68 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../components/ui/Button";
 import { Input } from "../components/ui/Input";
 import { Card } from "../components/ui/Card";
-import { TrendingUp, CheckCircle } from "lucide-react";
+import { TrendingUp, CheckCircle, AlertCircle } from "lucide-react";
 import { motion } from "motion/react";
 import { useState } from "react";
+import { useAuth } from "../../contexts/AuthContext";
 
 export function Signup() {
   const navigate = useNavigate();
+  const { signUp, signInWithGoogle } = useAuth();
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     password: "",
     confirmPassword: ""
   });
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    navigate("/dashboard");
+    setError("");
+    setLoading(true);
+
+    if (formData.password !== formData.confirmPassword) {
+      setError("Passwords do not match");
+      setLoading(false);
+      return;
+    }
+
+    if (formData.password.length < 6) {
+      setError("Password must be at least 6 characters long");
+      setLoading(false);
+      return;
+    }
+
+    const { error } = await signUp(formData.email, formData.password, formData.fullName);
+
+    if (error) {
+      setError(error.message);
+      setLoading(false);
+    } else {
+      setSuccess(true);
+      setLoading(false);
+      // Auto-redirect after 2 seconds
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 2000);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleGoogleSignIn = async () => {
+    setError("");
+    setLoading(true);
+    const { error } = await signInWithGoogle();
+    if (error) {
+      setError(error.message);
+      setLoading(false);
+    }
   };
 
   const passwordStrength = formData.password.length > 0 ?
@@ -62,6 +104,20 @@ export function Signup() {
 
           <Card>
             <form onSubmit={handleSubmit} className="space-y-4">
+              {error && (
+                <div className="p-3 rounded-lg bg-destructive/10 border border-destructive/20 flex items-start gap-2">
+                  <AlertCircle className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
+                  <p className="text-sm text-destructive">{error}</p>
+                </div>
+              )}
+
+              {success && (
+                <div className="p-3 rounded-lg bg-success/10 border border-success/20 flex items-start gap-2">
+                  <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
+                  <p className="text-sm text-success">Account created successfully! Redirecting...</p>
+                </div>
+              )}
+
               <Input
                 type="text"
                 name="fullName"
@@ -70,6 +126,7 @@ export function Signup() {
                 value={formData.fullName}
                 onChange={handleChange}
                 required
+                disabled={loading || success}
               />
 
               <Input
@@ -80,6 +137,7 @@ export function Signup() {
                 value={formData.email}
                 onChange={handleChange}
                 required
+                disabled={loading || success}
               />
 
               <div>
@@ -91,6 +149,7 @@ export function Signup() {
                   value={formData.password}
                   onChange={handleChange}
                   required
+                  disabled={loading || success}
                 />
                 {passwordStrength && (
                   <div className="mt-2 flex items-center gap-2">
@@ -122,17 +181,30 @@ export function Signup() {
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 required
+                disabled={loading || success}
               />
 
               <label className="flex items-start gap-2 cursor-pointer">
-                <input type="checkbox" className="mt-1 rounded border-border" required />
+                <input type="checkbox" className="mt-1 rounded border-border" required disabled={loading || success} />
                 <span className="text-sm text-muted-foreground">
                   I agree to the <Link to="/terms" className="text-primary hover:underline">Terms of Service</Link> and <Link to="/privacy" className="text-primary hover:underline">Privacy Policy</Link>
                 </span>
               </label>
 
-              <Button type="submit" variant="primary" className="w-full">
-                Create Account
+              <Button type="submit" variant="primary" className="w-full" disabled={loading || success}>
+                {loading ? (
+                  <div className="flex items-center gap-2">
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    Creating Account...
+                  </div>
+                ) : success ? (
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4" />
+                    Account Created!
+                  </div>
+                ) : (
+                  'Create Account'
+                )}
               </Button>
 
               <div className="relative my-6">
@@ -144,7 +216,7 @@ export function Signup() {
                 </div>
               </div>
 
-              <Button type="button" variant="outline" className="w-full">
+              <Button type="button" variant="outline" className="w-full" onClick={handleGoogleSignIn} disabled={loading || success}>
                 <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
                   <path
                     fill="currentColor"

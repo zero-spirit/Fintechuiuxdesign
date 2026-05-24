@@ -1,11 +1,12 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "../components/ui/Button";
 import { Input } from "../components/ui/Input";
 import { Card } from "../components/ui/Card";
-import { TrendingUp } from "lucide-react";
+import { TrendingUp, AlertCircle } from "lucide-react";
 import { motion } from "motion/react";
 import { useState } from "react";
 import { MiniChart } from "../components/MiniChart";
+import { useAuth } from "../../contexts/AuthContext";
 
 const generateMockChart = () => {
   const data = [];
@@ -19,12 +20,38 @@ const generateMockChart = () => {
 
 export function Login() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { signIn, signInWithGoogle } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const from = (location.state as any)?.from?.pathname || "/dashboard";
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    navigate("/dashboard");
+    setError("");
+    setLoading(true);
+
+    const { error } = await signIn(email, password);
+
+    if (error) {
+      setError(error.message);
+      setLoading(false);
+    } else {
+      navigate(from, { replace: true });
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    setError("");
+    setLoading(true);
+    const { error } = await signInWithGoogle();
+    if (error) {
+      setError(error.message);
+      setLoading(false);
+    }
   };
 
   return (
@@ -52,6 +79,13 @@ export function Login() {
 
           <Card>
             <form onSubmit={handleSubmit} className="space-y-4">
+              {error && (
+                <div className="p-3 rounded-lg bg-destructive/10 border border-destructive/20 flex items-start gap-2">
+                  <AlertCircle className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
+                  <p className="text-sm text-destructive">{error}</p>
+                </div>
+              )}
+
               <Input
                 type="email"
                 label="Email"
@@ -59,6 +93,7 @@ export function Login() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                disabled={loading}
               />
 
               <Input
@@ -68,11 +103,12 @@ export function Login() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                disabled={loading}
               />
 
               <div className="flex items-center justify-between">
                 <label className="flex items-center gap-2 cursor-pointer">
-                  <input type="checkbox" className="rounded border-border" />
+                  <input type="checkbox" className="rounded border-border" disabled={loading} />
                   <span className="text-sm">Remember me</span>
                 </label>
                 <Link to="/forgot-password" className="text-sm text-primary hover:underline">
@@ -80,8 +116,15 @@ export function Login() {
                 </Link>
               </div>
 
-              <Button type="submit" variant="primary" className="w-full">
-                Sign In
+              <Button type="submit" variant="primary" className="w-full" disabled={loading}>
+                {loading ? (
+                  <div className="flex items-center gap-2">
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    Signing In...
+                  </div>
+                ) : (
+                  'Sign In'
+                )}
               </Button>
 
               <div className="relative my-6">
@@ -93,7 +136,7 @@ export function Login() {
                 </div>
               </div>
 
-              <Button type="button" variant="outline" className="w-full">
+              <Button type="button" variant="outline" className="w-full" onClick={handleGoogleSignIn} disabled={loading}>
                 <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
                   <path
                     fill="currentColor"
