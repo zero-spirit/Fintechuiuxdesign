@@ -1,14 +1,14 @@
 import { useState } from "react";
-import { Card } from "../components/ui/CustomCard";
-import { Input } from "../components/ui/CustomInput";
-import { Badge } from "../components/ui/CustomBadge";
+import { Card } from "../components/ui/Card";
+import { Input } from "../components/ui/Input";
+import { Badge } from "../components/ui/Badge";
 import { StockCard } from "../components/StockCard";
 import { LoadingSpinner } from "../components/LoadingSpinner";
 import { ErrorMessage } from "../components/ErrorMessage";
 import { Search, Filter, TrendingUp, TrendingDown, RefreshCw } from "lucide-react";
 import { useStocks, useTopGainersLosers } from "../../hooks/useStocks";
 import { motion } from "motion/react";
-import { Button } from "../components/ui/CustomButton";
+import { Button } from "../components/ui/Button";
 
 export function Stocks() {
   const [searchQuery, setSearchQuery] = useState("");

@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Card } from "../components/ui/CustomCard";
-import { Badge } from "../components/ui/CustomBadge";
-import { Input } from "../components/ui/CustomInput";
-import { Button } from "../components/ui/CustomButton";
+import { Card } from "../components/ui/Card";
+import { Badge } from "../components/ui/Badge";
+import { Input } from "../components/ui/Input";
+import { Button } from "../components/ui/Button";
 import { LoadingSpinner } from "../components/LoadingSpinner";
 import { ErrorMessage } from "../components/ErrorMessage";
 import { useNews } from "../../hooks/useNews";
