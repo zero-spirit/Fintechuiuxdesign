@@ -1,7 +1,7 @@
-import { Card, CardHeader, CardTitle, CardContent } from "../components/ui/Card";
-import { Button } from "../components/ui/Button";
-import { Input } from "../components/ui/Input";
-import { Badge } from "../components/ui/Badge";
+import { Card, CardHeader, CardTitle, CardContent } from "../components/ui/CustomCard";
+import { Button } from "../components/ui/CustomButton";
+import { Input } from "../components/ui/CustomInput";
+import { Badge } from "../components/ui/CustomBadge";
 import { User, Mail, Phone, Shield, Bell, CreditCard, LogOut } from "lucide-react";
 
 export function Profile() {

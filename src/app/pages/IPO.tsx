@@ -1,6 +1,6 @@
-import { Card, CardContent } from "../components/ui/Card";
-import { Badge } from "../components/ui/Badge";
-import { Button } from "../components/ui/Button";
+import { Card, CardContent } from "../components/ui/CustomCard";
+import { Badge } from "../components/ui/CustomBadge";
+import { Button } from "../components/ui/CustomButton";
 import { LoadingSpinner } from "../components/LoadingSpinner";
 import { ErrorMessage } from "../components/ErrorMessage";
 import { useIPOs } from "../../hooks/useIPOs";

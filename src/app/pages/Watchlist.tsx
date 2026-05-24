@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Card } from "../components/ui/Card";
-import { Button } from "../components/ui/Button";
+import { Card } from "../components/ui/CustomCard";
+import { Button } from "../components/ui/CustomButton";
 import { StockCard } from "../components/StockCard";
 import { mockStocks } from "../../lib/mockData";
 import { Plus, Trash2 } from "lucide-react";

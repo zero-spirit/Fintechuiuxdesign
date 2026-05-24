@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "../components/ui/Button";
-import { Input } from "../components/ui/Input";
-import { Card } from "../components/ui/Card";
+import { Button } from "../components/ui/CustomButton";
+import { Input } from "../components/ui/CustomInput";
+import { Card } from "../components/ui/CustomCard";
 import { TrendingUp } from "lucide-react";
 import { motion } from "motion/react";
 import { useState } from "react";

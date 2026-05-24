@@ -1,6 +1,6 @@
-import { Card, CardHeader, CardTitle, CardContent } from "../components/ui/Card";
-import { Button } from "../components/ui/Button";
-import { Badge } from "../components/ui/Badge";
+import { Card, CardHeader, CardTitle, CardContent } from "../components/ui/CustomCard";
+import { Button } from "../components/ui/CustomButton";
+import { Badge } from "../components/ui/CustomBadge";
 import { StockCard } from "../components/StockCard";
 import {
   TrendingUp,

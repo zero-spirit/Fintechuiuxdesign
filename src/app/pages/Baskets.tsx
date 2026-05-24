@@ -1,6 +1,6 @@
-import { Card } from "../components/ui/Card";
-import { Badge } from "../components/ui/Badge";
-import { Button } from "../components/ui/Button";
+import { Card } from "../components/ui/CustomCard";
+import { Badge } from "../components/ui/CustomBadge";
+import { Button } from "../components/ui/CustomButton";
 import { mockBaskets } from "../../lib/mockData";
 import { getRiskColor, formatCurrency } from "../../lib/utils";
 import { TrendingUp, ShoppingCart, Info } from "lucide-react";
