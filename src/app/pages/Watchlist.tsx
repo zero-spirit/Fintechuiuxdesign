@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Card } from "../components/ui/Card";
 import { Button } from "../components/ui/Button";
 import { Badge } from "../components/ui/Badge";
 import { Input } from "../components/ui/Input";
 import { StockCard } from "../components/StockCard";
 import { useStocks } from "../../hooks/useStocks";
+import { useWatchlist } from "../../hooks/useWatchlist";
 import { Plus, Trash2, Search, Star, TrendingUp, DollarSign, Package, Filter } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { formatCurrency, formatPercent } from "../../lib/utils";
@@ -24,17 +25,10 @@ const item = {
 
 export function Watchlist() {
   const { stocks } = useStocks();
-  const [watchlistIds, setWatchlistIds] = useState<Set<string>>(() => {
-    const saved = localStorage.getItem('watchlist');
-    return saved ? new Set(JSON.parse(saved)) : new Set();
-  });
+  const { watchlistIds, addToWatchlist, removeFromWatchlist } = useWatchlist();
   const [showAddModal, setShowAddModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedSector, setSelectedSector] = useState<string>('all');
-
-  useEffect(() => {
-    localStorage.setItem('watchlist', JSON.stringify(Array.from(watchlistIds)));
-  }, [watchlistIds]);
 
   const watchlistStocks = stocks.filter(stock =>
     watchlistIds.has(stock.symbol)
@@ -51,18 +45,6 @@ export function Watchlist() {
   const filteredWatchlist = selectedSector === 'all'
     ? watchlistStocks
     : watchlistStocks.filter(s => s.sector === selectedSector);
-
-  const addToWatchlist = (symbol: string) => {
-    setWatchlistIds(prev => new Set([...prev, symbol]));
-  };
-
-  const removeFromWatchlist = (symbol: string) => {
-    setWatchlistIds(prev => {
-      const newSet = new Set(prev);
-      newSet.delete(symbol);
-      return newSet;
-    });
-  };
 
   const avgChange = watchlistStocks.length > 0
     ? watchlistStocks.reduce((sum, stock) => sum + stock.changePercent, 0) / watchlistStocks.length

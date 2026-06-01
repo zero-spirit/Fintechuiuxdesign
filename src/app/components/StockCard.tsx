@@ -7,6 +7,7 @@ import type { Stock } from "../../lib/mockData";
 import { formatCurrency, formatPercent, getChangeColor } from "../../lib/utils";
 import { MiniChart } from "./MiniChart";
 import { StockDetailModal } from "./StockDetailModal";
+import { useWatchlist } from "../../hooks/useWatchlist";
 
 interface StockCardProps {
   stock: Stock;
@@ -15,7 +16,16 @@ interface StockCardProps {
 
 export function StockCard({ stock, onAddToWatchlist }: StockCardProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { isInWatchlist, toggleWatchlist } = useWatchlist();
   const isPositive = stock.change >= 0;
+  const inWatchlist = isInWatchlist(stock.symbol);
+
+  const handleWatchlistToggle = () => {
+    toggleWatchlist(stock.symbol);
+    if (onAddToWatchlist) {
+      onAddToWatchlist();
+    }
+  };
 
   return (
     <Card glass hoverable className="relative group overflow-hidden">
@@ -27,10 +37,21 @@ export function StockCard({ stock, onAddToWatchlist }: StockCardProps) {
       {/* Watchlist button */}
       <div className="absolute top-4 right-4 z-10">
         <button
-          onClick={onAddToWatchlist}
-          className="p-2 hover:bg-warning/10 rounded-lg transition-all duration-300 backdrop-blur-sm border border-transparent hover:border-warning/30"
+          onClick={handleWatchlistToggle}
+          className={`p-2 rounded-lg transition-all duration-300 backdrop-blur-sm border ${
+            inWatchlist
+              ? 'bg-warning/20 border-warning/30'
+              : 'hover:bg-warning/10 border-transparent hover:border-warning/30'
+          }`}
+          title={inWatchlist ? "Remove from watchlist" : "Add to watchlist"}
         >
-          <Star className="w-4 h-4 text-muted-foreground hover:text-warning hover:fill-warning transition-all" />
+          <Star
+            className={`w-4 h-4 transition-all ${
+              inWatchlist
+                ? 'text-warning fill-warning'
+                : 'text-muted-foreground hover:text-warning'
+            }`}
+          />
         </button>
       </div>
 
