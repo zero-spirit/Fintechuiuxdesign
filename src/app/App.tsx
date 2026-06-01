@@ -49,64 +49,64 @@ function AppContent() {
         <Route
           path="/dashboard"
           element={
-            <ProtectedRoute>
+            <>
               <MarketTicker />
               <Dashboard />
-            </ProtectedRoute>
+            </>
           }
         />
         <Route
           path="/stocks"
           element={
-            <ProtectedRoute>
+            <>
               <MarketTicker />
               <Stocks />
-            </ProtectedRoute>
+            </>
           }
         />
         <Route
           path="/ipo"
           element={
-            <ProtectedRoute>
+            <>
               <MarketTicker />
               <IPO />
-            </ProtectedRoute>
+            </>
           }
         />
         <Route
           path="/watchlist"
           element={
-            <ProtectedRoute>
+            <>
               <MarketTicker />
               <Watchlist />
-            </ProtectedRoute>
+            </>
           }
         />
         <Route
           path="/news"
           element={
-            <ProtectedRoute>
+            <>
               <MarketTicker />
               <News />
-            </ProtectedRoute>
+            </>
           }
         />
         <Route
           path="/baskets"
           element={
-            <ProtectedRoute>
+            <>
               <MarketTicker />
               <Baskets />
-            </ProtectedRoute>
+            </>
           }
         />
         <Route
           path="/profile"
           element={
-            <ProtectedRoute>
+            <>
               <MarketTicker />
               <Profile />
-            </ProtectedRoute>
+            </>
           }
         />
         <Route path="*" element={<Navigate to="/" replace />} />
