@@ -1,10 +1,12 @@
+import { useState } from "react";
 import { Card } from "./ui/Card";
 import { Badge } from "./ui/Badge";
 import { Button } from "./ui/Button";
-import { TrendingUp, TrendingDown, Plus, Star } from "lucide-react";
+import { TrendingUp, TrendingDown, Info, Star } from "lucide-react";
 import type { Stock } from "../../lib/mockData";
 import { formatCurrency, formatPercent, getChangeColor } from "../../lib/utils";
 import { MiniChart } from "./MiniChart";
+import { StockDetailModal } from "./StockDetailModal";
 
 interface StockCardProps {
   stock: Stock;
@@ -12,6 +14,7 @@ interface StockCardProps {
 }
 
 export function StockCard({ stock, onAddToWatchlist }: StockCardProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const isPositive = stock.change >= 0;
 
   return (
@@ -100,15 +103,23 @@ export function StockCard({ stock, onAddToWatchlist }: StockCardProps) {
         </div>
       </div>
 
-      {/* Buy Button */}
+      {/* More Info Button */}
       <Button
         variant="primary"
         size="sm"
+        onClick={() => setIsModalOpen(true)}
         className="w-full mt-4 shadow-lg shadow-primary/20 group-hover:shadow-xl group-hover:shadow-primary/30 transition-all"
       >
-        <Plus className="w-4 h-4 mr-2" />
-        Buy Now
+        <Info className="w-4 h-4 mr-2" />
+        More Info
       </Button>
+
+      {/* Stock Detail Modal */}
+      <StockDetailModal
+        stock={stock}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </Card>
   );
 }
