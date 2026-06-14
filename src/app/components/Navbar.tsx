@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "./ui/Button";
 import {
-  TrendingUp,
+  BarChart2,
   LayoutDashboard,
   Newspaper,
   ShoppingBag,
@@ -21,7 +21,7 @@ export function Navbar() {
 
   const navLinks = [
     { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-    { to: "/stocks", label: "Stocks", icon: TrendingUp },
+    { to: "/stocks", label: "Stocks", icon: BarChart2 },
     { to: "/ipo", label: "IPOs", icon: DollarSign },
     { to: "/watchlist", label: "Watchlist", icon: Star },
     { to: "/baskets", label: "Baskets", icon: ShoppingBag },
@@ -32,10 +32,7 @@ export function Navbar() {
     <nav className="bg-card border-b border-border sticky top-0 z-50 backdrop-blur-lg bg-card/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-              <TrendingUp className="w-6 h-6 text-white" />
-            </div>
+          <Link to="/" className="flex items-center">
             <span className="font-bold text-xl bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
               Ani.AMC
             </span>

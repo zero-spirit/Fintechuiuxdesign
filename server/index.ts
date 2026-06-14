@@ -5,8 +5,13 @@ import stockRoutes from './routes/stocks';
 import ipoRoutes from './routes/ipo';
 import newsRoutes from './routes/news';
 import marketRoutes from './routes/market';
+import userRoutes from './routes/user';
+import { connectMongoDB } from './db/mongoose';
 
 dotenv.config();
+
+// Connect MongoDB (non-blocking — app runs even if Mongo is unavailable)
+connectMongoDB();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -21,6 +26,7 @@ app.use('/api/stocks', stockRoutes);
 app.use('/api/ipo', ipoRoutes);
 app.use('/api/news', newsRoutes);
 app.use('/api/market', marketRoutes);
+app.use('/api/user', userRoutes);
 
 app.get('/api/health', (req: Request, res: Response) => {
   res.json({ status: 'OK', message: 'Ani.AMC API is running' });
@@ -37,6 +43,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 app.listen(PORT, () => {
   console.log(`🚀 Ani.AMC Server running on http://localhost:${PORT}`);
   console.log(`📊 Stock API ready for Indian markets (NSE/BSE)`);
+  console.log(`👤 User API available at /api/user`);
 });
 
 export default app;

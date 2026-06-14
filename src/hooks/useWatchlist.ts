@@ -1,38 +1,25 @@
-import { useState, useEffect } from 'react';
+import { useUserDataContext } from '../context/UserDataContext';
 
 export function useWatchlist() {
-  const [watchlistIds, setWatchlistIds] = useState<Set<string>>(() => {
-    const saved = localStorage.getItem('watchlist');
-    return saved ? new Set(JSON.parse(saved)) : new Set();
-  });
+  const { watchlist, toggleWatchlist: ctxToggle, setWatchlist } = useUserDataContext();
 
-  useEffect(() => {
-    localStorage.setItem('watchlist', JSON.stringify(Array.from(watchlistIds)));
-  }, [watchlistIds]);
+  const watchlistIds = new Set(watchlist);
 
-  const addToWatchlist = (symbol: string) => {
-    setWatchlistIds(prev => new Set([...prev, symbol]));
-  };
-
-  const removeFromWatchlist = (symbol: string) => {
-    setWatchlistIds(prev => {
-      const newSet = new Set(prev);
-      newSet.delete(symbol);
-      return newSet;
-    });
-  };
-
-  const toggleWatchlist = (symbol: string) => {
-    if (watchlistIds.has(symbol)) {
-      removeFromWatchlist(symbol);
-    } else {
-      addToWatchlist(symbol);
+  const addToWatchlist = async (symbol: string) => {
+    if (!watchlistIds.has(symbol)) {
+      await setWatchlist([...watchlist, symbol]);
     }
   };
 
-  const isInWatchlist = (symbol: string) => {
-    return watchlistIds.has(symbol);
+  const removeFromWatchlist = async (symbol: string) => {
+    await setWatchlist(watchlist.filter(s => s !== symbol));
   };
+
+  const toggleWatchlist = async (symbol: string) => {
+    await ctxToggle(symbol);
+  };
+
+  const isInWatchlist = (symbol: string) => watchlistIds.has(symbol);
 
   return {
     watchlistIds,

@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
+import { useUserDataContext } from "../../context/UserDataContext";
 import { Card, CardContent } from "../components/ui/Card";
 import { Badge } from "../components/ui/Badge";
 import { Button } from "../components/ui/Button";
@@ -8,7 +9,7 @@ import { useIPOs } from "../../hooks/useIPOs";
 import { getStatusBadgeColor } from "../../lib/utils";
 import { Calendar, TrendingUp, Users, DollarSign, Bell, RefreshCw, Filter, Star, ExternalLink, BarChart3, Crown, Sparkles, CheckCircle2, XCircle, MinusCircle, ChevronDown, ChevronUp } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
-import type { IPO as IPOType } from "../../lib/mockData";
+import type { IPO as IPOType } from "../../services/api";
 
 type Verdict = 'Strong Buy' | 'Buy' | 'Neutral' | 'Avoid';
 
@@ -91,7 +92,8 @@ const item = {
 export function IPO() {
   const { ipos, loading, error, refreshIPOs } = useIPOs();
   const [selectedTab, setSelectedTab] = useState<'all' | 'upcoming' | 'open' | 'listed'>('all');
-  const [watchedIPOs, setWatchedIPOs] = useState<Set<string>>(new Set());
+  const { watchedIPOs: watchedIPOList, toggleIPOAlert } = useUserDataContext();
+  const watchedIPOs = useMemo(() => new Set(watchedIPOList), [watchedIPOList]);
   const [aiOpinions, setAiOpinions] = useState<Map<string, AIOpinion>>(new Map());
   const [aiLoading, setAiLoading] = useState<Set<string>>(new Set());
   const [expandedOpinions, setExpandedOpinions] = useState<Set<string>>(new Set());
@@ -125,15 +127,7 @@ export function IPO() {
   }
 
   const toggleWatch = (ipoId: string) => {
-    setWatchedIPOs(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(ipoId)) {
-        newSet.delete(ipoId);
-      } else {
-        newSet.add(ipoId);
-      }
-      return newSet;
-    });
+    toggleIPOAlert(ipoId);
   };
 
   const filteredIPOs = selectedTab === 'all'

@@ -558,10 +558,7 @@ export function Landing() {
 
           <div className="border-t border-border pt-8">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                  <TrendingUp className="w-5 h-5 text-white" />
-                </div>
+              <div className="flex items-center">
                 <span className="font-bold text-lg bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                   Ani.AMC
                 </span>

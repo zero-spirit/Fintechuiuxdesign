@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
+import { useUserDataContext } from "../../context/UserDataContext";
 import { Card } from "../components/ui/Card";
 import { Badge } from "../components/ui/Badge";
 import { Button } from "../components/ui/Button";
@@ -28,26 +29,11 @@ export function Baskets() {
   const [selectedCategory, setSelectedCategory] = useState<BasketCategory>('all');
   const [selectedRisk, setSelectedRisk] = useState<RiskFilter>('all');
   const [selectedBasket, setSelectedBasket] = useState<typeof mockBaskets[0] | null>(null);
-  const [subscribedBaskets, setSubscribedBaskets] = useState<Set<string>>(() => {
-    try {
-      const saved = localStorage.getItem('subscribedBaskets');
-      return saved ? new Set(JSON.parse(saved)) : new Set();
-    } catch {
-      return new Set();
-    }
-  });
+  const { subscribedBaskets: subscribedList, toggleBasketSubscription } = useUserDataContext();
+  const subscribedBaskets = useMemo(() => new Set(subscribedList), [subscribedList]);
 
   const toggleSubscription = (basketId: string) => {
-    setSubscribedBaskets(prev => {
-      const next = new Set(prev);
-      if (next.has(basketId)) {
-        next.delete(basketId);
-      } else {
-        next.add(basketId);
-      }
-      localStorage.setItem('subscribedBaskets', JSON.stringify([...next]));
-      return next;
-    });
+    toggleBasketSubscription(basketId);
   };
 
   const filteredBaskets = mockBaskets.filter(basket => {

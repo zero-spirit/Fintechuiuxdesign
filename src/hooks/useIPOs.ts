@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react';
 import { ipoAPI, IPO } from '../services/api';
+import { mockIPOs } from '../lib/mockData';
 
 export function useIPOs() {
   const [ipos, setIPOs] = useState<IPO[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    fetchIPOs();
-  }, []);
+  useEffect(() => { fetchIPOs(); }, []);
 
   const fetchIPOs = async () => {
     try {
@@ -16,14 +15,9 @@ export function useIPOs() {
       setError(null);
       const data = await ipoAPI.getIPOs();
       setIPOs(data);
-    } catch (err: any) {
-      if (err.code === 'ERR_NETWORK' || err.message === 'Network Error') {
-        setError('Backend server not running. Start it with: pnpm server:watch');
-      } else {
-        setError('Failed to fetch IPOs');
-      }
-      console.error('Error fetching IPOs:', err);
-      setIPOs([]);
+    } catch {
+      setIPOs(mockIPOs as IPO[]);
+      setError(null);
     } finally {
       setLoading(false);
     }
@@ -39,22 +33,21 @@ export function useIPODetails(id: string) {
 
   useEffect(() => {
     if (!id) return;
-
-    const fetchIPO = async () => {
+    const fetch = async () => {
       try {
         setLoading(true);
         setError(null);
         const data = await ipoAPI.getIPODetails(id);
         setIPO(data);
-      } catch (err) {
-        setError('Failed to fetch IPO details');
-        console.error('Error:', err);
+      } catch {
+        const fallback = mockIPOs.find(i => i.id === id);
+        setIPO((fallback as IPO) ?? null);
+        setError(null);
       } finally {
         setLoading(false);
       }
     };
-
-    fetchIPO();
+    fetch();
   }, [id]);
 
   return { ipo, loading, error };

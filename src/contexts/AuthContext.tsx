@@ -48,16 +48,26 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const signUp = async (email: string, password: string, fullName: string) => {
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: {
-          full_name: fullName,
-        },
-      },
-    });
-    return { error };
+    try {
+      // Use the edge function to create the user with email_confirm: true
+      // so users don't need to verify email (no email server configured)
+      const res = await fetch(
+        'https://qtsshrodxtzcrxvpoczf.supabase.co/functions/v1/make-server-59e47c35/auth/signup',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password, fullName }),
+        }
+      );
+      const json = await res.json();
+      if (json.error) return { error: { message: json.error } };
+
+      // Auto sign in after successful signup
+      const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
+      return { error: signInError };
+    } catch (e) {
+      return { error: { message: String(e) } };
+    }
   };
 
   const signOut = async () => {

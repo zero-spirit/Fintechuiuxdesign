@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../components/ui/Button";
 import { Input } from "../components/ui/Input";
 import { Card } from "../components/ui/Card";
-import { TrendingUp, CheckCircle, AlertCircle } from "lucide-react";
+import { CheckCircle, AlertCircle } from "lucide-react";
 import { motion } from "motion/react";
 import { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
@@ -88,10 +88,7 @@ export function Signup() {
           animate={{ opacity: 1, x: 0 }}
           className="w-full max-w-md"
         >
-          <Link to="/" className="flex items-center gap-2 mb-8">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-              <TrendingUp className="w-6 h-6 text-white" />
-            </div>
+          <Link to="/" className="flex items-center mb-8">
             <span className="font-bold text-xl bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
               Ani.AMC
             </span>

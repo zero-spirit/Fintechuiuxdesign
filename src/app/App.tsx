@@ -14,6 +14,7 @@ import { Baskets } from "./pages/Baskets";
 import { Profile } from "./pages/Profile";
 import { useEffect, useState } from "react";
 import { AuthProvider, useAuth } from "../contexts/AuthContext";
+import { UserDataProvider } from "../context/UserDataContext";
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
@@ -49,64 +50,64 @@ function AppContent() {
         <Route
           path="/dashboard"
           element={
-            <>
+            <ProtectedRoute>
               <MarketTicker />
               <Dashboard />
-            </>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/stocks"
           element={
-            <>
+            <ProtectedRoute>
               <MarketTicker />
               <Stocks />
-            </>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/ipo"
           element={
-            <>
+            <ProtectedRoute>
               <MarketTicker />
               <IPO />
-            </>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/watchlist"
           element={
-            <>
+            <ProtectedRoute>
               <MarketTicker />
               <Watchlist />
-            </>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/news"
           element={
-            <>
+            <ProtectedRoute>
               <MarketTicker />
               <News />
-            </>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/baskets"
           element={
-            <>
+            <ProtectedRoute>
               <MarketTicker />
               <Baskets />
-            </>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/profile"
           element={
-            <>
+            <ProtectedRoute>
               <MarketTicker />
               <Profile />
-            </>
+            </ProtectedRoute>
           }
         />
         <Route path="*" element={<Navigate to="/" replace />} />
@@ -129,6 +130,7 @@ function App() {
   return (
     <Router>
       <AuthProvider>
+        <UserDataProvider>
         <div className="min-h-screen bg-background text-foreground">
           <AppContent />
 
@@ -141,6 +143,7 @@ function App() {
             {isDark ? '☀️' : '🌙'}
           </button>
         </div>
+        </UserDataProvider>
       </AuthProvider>
     </Router>
   );

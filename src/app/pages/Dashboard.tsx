@@ -244,12 +244,12 @@ export function Dashboard() {
                 <ResponsiveContainer width="100%" height={320}>
                   <AreaChart data={portfolioData}>
                     <defs>
-                      <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
+                      <linearGradient id="dashColorValue" x1="0" y1="0" x2="0" y2="1">
                         <stop offset="5%" stopColor="#00C896" stopOpacity={0.4} />
                         <stop offset="50%" stopColor="#00C896" stopOpacity={0.2} />
                         <stop offset="95%" stopColor="#00C896" stopOpacity={0} />
                       </linearGradient>
-                      <linearGradient id="strokeGradient" x1="0" y1="0" x2="1" y2="0">
+                      <linearGradient id="dashStrokeGradient" x1="0" y1="0" x2="1" y2="0">
                         <stop offset="0%" stopColor="#00C896" />
                         <stop offset="100%" stopColor="#3B82F6" />
                       </linearGradient>
@@ -282,10 +282,10 @@ export function Dashboard() {
                     <Area
                       type="monotone"
                       dataKey="value"
-                      stroke="url(#strokeGradient)"
+                      stroke="url(#dashStrokeGradient)"
                       strokeWidth={3}
                       fillOpacity={1}
-                      fill="url(#colorValue)"
+                      fill="url(#dashColorValue)"
                       animationDuration={1500}
                     />
                   </AreaChart>

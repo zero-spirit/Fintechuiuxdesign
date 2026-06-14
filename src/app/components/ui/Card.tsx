@@ -9,7 +9,7 @@ interface CardProps {
 }
 
 export function Card({ children, className, hoverable = false, glass = false }: CardProps) {
-  const baseStyles = "rounded-xl p-6 border border-border";
+  const baseStyles = "relative rounded-xl p-6 border border-border";
   const glassStyles = glass ? "bg-card/50 backdrop-blur-lg" : "bg-card";
   const hoverStyles = hoverable ? "hover:shadow-lg hover:border-primary/50 cursor-pointer" : "";
 

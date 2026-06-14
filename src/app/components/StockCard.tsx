@@ -3,7 +3,7 @@ import { Card } from "./ui/Card";
 import { Badge } from "./ui/Badge";
 import { Button } from "./ui/Button";
 import { TrendingUp, TrendingDown, Info, Star } from "lucide-react";
-import type { Stock } from "../../lib/mockData";
+import type { Stock } from "../../services/api";
 import { formatCurrency, formatPercent, getChangeColor } from "../../lib/utils";
 import { MiniChart } from "./MiniChart";
 import { StockDetailModal } from "./StockDetailModal";
