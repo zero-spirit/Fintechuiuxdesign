@@ -28,6 +28,27 @@ export function Baskets() {
   const [selectedCategory, setSelectedCategory] = useState<BasketCategory>('all');
   const [selectedRisk, setSelectedRisk] = useState<RiskFilter>('all');
   const [selectedBasket, setSelectedBasket] = useState<typeof mockBaskets[0] | null>(null);
+  const [subscribedBaskets, setSubscribedBaskets] = useState<Set<string>>(() => {
+    try {
+      const saved = localStorage.getItem('subscribedBaskets');
+      return saved ? new Set(JSON.parse(saved)) : new Set();
+    } catch {
+      return new Set();
+    }
+  });
+
+  const toggleSubscription = (basketId: string) => {
+    setSubscribedBaskets(prev => {
+      const next = new Set(prev);
+      if (next.has(basketId)) {
+        next.delete(basketId);
+      } else {
+        next.add(basketId);
+      }
+      localStorage.setItem('subscribedBaskets', JSON.stringify([...next]));
+      return next;
+    });
+  };
 
   const filteredBaskets = mockBaskets.filter(basket => {
     const categoryMatch = selectedCategory === 'all' ||
@@ -255,21 +276,23 @@ export function Baskets() {
                     </div>
                   </div>
 
-                  <div className="border-t border-border/50 pt-4 mb-4">
-                    <p className="text-xs text-muted-foreground mb-2">Top Holdings</p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {basket.stocks.slice(0, 3).map((stock, i) => (
-                        <Badge key={i} variant="outline" className="text-xs border-primary/30 bg-primary/5">
-                          {stock}
-                        </Badge>
-                      ))}
-                      {basket.stocks.length > 3 && (
-                        <Badge variant="outline" className="text-xs">
-                          +{basket.stocks.length - 3} more
-                        </Badge>
-                      )}
+                  {subscribedBaskets.has(basket.id) && (
+                    <div className="border-t border-border/50 pt-4 mb-4">
+                      <p className="text-xs text-muted-foreground mb-2">Top Holdings</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {basket.stocks.slice(0, 3).map((stock, i) => (
+                          <Badge key={i} variant="outline" className="text-xs border-primary/30 bg-primary/5">
+                            {stock}
+                          </Badge>
+                        ))}
+                        {basket.stocks.length > 3 && (
+                          <Badge variant="outline" className="text-xs">
+                            +{basket.stocks.length - 3} more
+                          </Badge>
+                        )}
+                      </div>
                     </div>
-                  </div>
+                  )}
 
                   <div className="space-y-2 mb-4">
                     <div className="flex items-center justify-between text-sm p-2 rounded-lg bg-muted/20">
@@ -284,12 +307,22 @@ export function Baskets() {
 
                   <div className="flex gap-2">
                     <Button
-                      variant="primary"
+                      variant={subscribedBaskets.has(basket.id) ? "outline" : "primary"}
                       className="flex-1 shadow-lg shadow-primary/20"
                       size="sm"
+                      onClick={() => toggleSubscription(basket.id)}
                     >
-                      <ShoppingCart className="w-4 h-4 mr-2" />
-                      Subscribe
+                      {subscribedBaskets.has(basket.id) ? (
+                        <>
+                          <Shield className="w-4 h-4 mr-2 text-success" />
+                          Subscribed
+                        </>
+                      ) : (
+                        <>
+                          <ShoppingCart className="w-4 h-4 mr-2" />
+                          Subscribe
+                        </>
+                      )}
                     </Button>
                     <Button
                       variant="outline"
@@ -379,21 +412,42 @@ export function Baskets() {
                       </div>
                     )}
 
-                    <div className="mb-6">
-                      <h3 className="font-semibold mb-3">Holdings ({selectedBasket.stocks.length})</h3>
-                      <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-                        {selectedBasket.stocks.map((stock, i) => (
-                          <Badge key={i} variant="outline" className="justify-center py-2">
-                            {stock}
-                          </Badge>
-                        ))}
+                    {subscribedBaskets.has(selectedBasket.id) ? (
+                      <div className="mb-6">
+                        <h3 className="font-semibold mb-3">Holdings ({selectedBasket.stocks.length})</h3>
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                          {selectedBasket.stocks.map((stock, i) => (
+                            <Badge key={i} variant="outline" className="justify-center py-2">
+                              {stock}
+                            </Badge>
+                          ))}
+                        </div>
                       </div>
-                    </div>
+                    ) : (
+                      <div className="mb-6 p-4 rounded-xl border border-border/50 bg-muted/20 flex items-center gap-3">
+                        <Shield className="w-5 h-5 text-muted-foreground flex-shrink-0" />
+                        <p className="text-sm text-muted-foreground">Subscribe to unlock the full holdings list for this basket.</p>
+                      </div>
+                    )}
 
                     <div className="flex items-center gap-3">
-                      <Button variant="primary" size="lg" className="flex-1 shadow-lg shadow-primary/20">
-                        <ShoppingCart className="w-5 h-5 mr-2" />
-                        Subscribe Now - {formatCurrency(selectedBasket.price)}/mo
+                      <Button
+                        variant={subscribedBaskets.has(selectedBasket.id) ? "outline" : "primary"}
+                        size="lg"
+                        className="flex-1 shadow-lg shadow-primary/20"
+                        onClick={() => toggleSubscription(selectedBasket.id)}
+                      >
+                        {subscribedBaskets.has(selectedBasket.id) ? (
+                          <>
+                            <Shield className="w-5 h-5 mr-2 text-success" />
+                            Unsubscribe
+                          </>
+                        ) : (
+                          <>
+                            <ShoppingCart className="w-5 h-5 mr-2" />
+                            Subscribe Now - {formatCurrency(selectedBasket.price)}/mo
+                          </>
+                        )}
                       </Button>
                     </div>
                   </div>
