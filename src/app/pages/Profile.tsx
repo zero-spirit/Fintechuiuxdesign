@@ -1,3 +1,4 @@
+import { usePageTitle } from "../../hooks/usePageTitle";
 import { Card, CardHeader, CardTitle, CardContent } from "../components/ui/Card";
 import { Button } from "../components/ui/Button";
 import { Input } from "../components/ui/Input";
@@ -5,6 +6,7 @@ import { Badge } from "../components/ui/Badge";
 import { User, Mail, Phone, Shield, Bell, CreditCard, LogOut } from "lucide-react";
 
 export function Profile() {
+  usePageTitle("Profile");
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

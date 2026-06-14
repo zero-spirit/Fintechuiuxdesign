@@ -1,3 +1,4 @@
+import { usePageTitle } from "../../hooks/usePageTitle";
 import { useState } from "react";
 import { Card } from "../components/ui/Card";
 import { Button } from "../components/ui/Button";
@@ -54,6 +55,7 @@ export function Watchlist() {
 
   const positiveStocks = watchlistStocks.filter(s => s.changePercent > 0).length;
 
+  usePageTitle("Watchlist");
   return (
     <div className="relative min-h-screen bg-background overflow-hidden">
       {/* Animated Background */}

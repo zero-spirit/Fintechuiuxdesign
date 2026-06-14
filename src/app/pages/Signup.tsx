@@ -1,3 +1,4 @@
+import { usePageTitle } from "../../hooks/usePageTitle";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../components/ui/Button";
 import { Input } from "../components/ui/Input";
@@ -79,6 +80,7 @@ export function Signup() {
     "24/7 customer support"
   ];
 
+  usePageTitle("Sign Up");
   return (
     <div className="min-h-screen flex">
       {/* Left Side - Form */}

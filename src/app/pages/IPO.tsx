@@ -1,3 +1,4 @@
+import { usePageTitle } from "../../hooks/usePageTitle";
 import { useState, useMemo } from "react";
 import { useUserDataContext } from "../../context/UserDataContext";
 import { Card, CardContent } from "../components/ui/Card";
@@ -138,6 +139,7 @@ export function IPO() {
   const openCount = ipos.filter(ipo => ipo.status === 'open').length;
   const listedCount = ipos.filter(ipo => ipo.status === 'listed').length;
 
+  usePageTitle("IPO Center");
   return (
     <div className="relative min-h-screen bg-background overflow-hidden">
       {/* Animated Background */}

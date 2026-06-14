@@ -15,6 +15,8 @@ import { Profile } from "./pages/Profile";
 import { useEffect, useState } from "react";
 import { AuthProvider, useAuth } from "../contexts/AuthContext";
 import { UserDataProvider } from "../context/UserDataContext";
+import { ErrorBoundary } from "./components/ErrorBoundary";
+import { ErrorPage } from "./pages/ErrorPage";
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
@@ -110,7 +112,7 @@ function AppContent() {
             </ProtectedRoute>
           }
         />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<ErrorPage code={404} />} />
       </Routes>
     </>
   );
@@ -131,6 +133,7 @@ function App() {
     <Router>
       <AuthProvider>
         <UserDataProvider>
+        <ErrorBoundary>
         <div className="min-h-screen bg-background text-foreground">
           <AppContent />
 
@@ -143,6 +146,7 @@ function App() {
             {isDark ? '☀️' : '🌙'}
           </button>
         </div>
+        </ErrorBoundary>
         </UserDataProvider>
       </AuthProvider>
     </Router>

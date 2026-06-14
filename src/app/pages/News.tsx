@@ -1,3 +1,4 @@
+import { usePageTitle } from "../../hooks/usePageTitle";
 import { useState } from "react";
 import { Card } from "../components/ui/Card";
 import { Badge } from "../components/ui/Badge";
@@ -35,6 +36,7 @@ export function News() {
     );
   }
 
+  usePageTitle("News");
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

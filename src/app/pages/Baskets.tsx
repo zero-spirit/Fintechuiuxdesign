@@ -1,3 +1,4 @@
+import { usePageTitle } from "../../hooks/usePageTitle";
 import { useState, useMemo } from "react";
 import { useUserDataContext } from "../../context/UserDataContext";
 import { Card } from "../components/ui/Card";
@@ -44,6 +45,7 @@ export function Baskets() {
     return categoryMatch && riskMatch;
   });
 
+  usePageTitle("Baskets");
   return (
     <div className="relative min-h-screen bg-background overflow-hidden">
       {/* Animated Background */}

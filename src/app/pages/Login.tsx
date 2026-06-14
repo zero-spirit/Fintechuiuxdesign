@@ -1,3 +1,4 @@
+import { usePageTitle } from "../../hooks/usePageTitle";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Input } from "../components/ui/Input";
 import { AlertCircle, ArrowRight, Shield, Zap, BarChart3 } from "lucide-react";
@@ -45,6 +46,7 @@ export function Login() {
     if (error) { setError(error.message); setLoading(false); }
   };
 
+  usePageTitle("Sign In");
   return (
     <div
       className="min-h-screen flex overflow-hidden"

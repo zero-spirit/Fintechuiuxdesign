@@ -1,3 +1,4 @@
+import { usePageTitle } from "../../hooks/usePageTitle";
 import { Card, CardHeader, CardTitle, CardContent } from "../components/ui/Card";
 import { Button } from "../components/ui/Button";
 import { Badge } from "../components/ui/Badge";
@@ -63,6 +64,7 @@ export function Dashboard() {
   const latestNews = mockNews.slice(0, 3);
   const featuredBasket = mockBaskets[0];
 
+  usePageTitle("Dashboard");
   return (
     <div className="relative min-h-screen bg-background overflow-hidden">
       {/* Animated Background */}

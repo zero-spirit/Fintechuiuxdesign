@@ -1,3 +1,4 @@
+import { usePageTitle } from "../../hooks/usePageTitle";
 import { Link } from "react-router-dom";
 import { Button } from "../components/ui/Button";
 import { Card } from "../components/ui/Card";
@@ -183,6 +184,7 @@ export function Landing() {
     }
   ];
 
+  usePageTitle("Home");
   return (
     <div className="relative min-h-screen overflow-hidden">
       {/* Animated Background */}
