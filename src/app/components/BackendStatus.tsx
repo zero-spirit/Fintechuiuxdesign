@@ -71,7 +71,7 @@ export function BackendStatus() {
                     Start the backend to enable MongoDB persistence. Data is being saved to Supabase cache in the meantime.
                   </p>
                   <div className="bg-background rounded-lg p-3 font-mono text-sm mb-3">
-                    <code className="text-success">pnpm dev:full</code>
+                    <code className="text-success">npm run dev:full</code>
                   </div>
                   <div className="flex items-center gap-2">
                     <Button onClick={checkBackendStatus} size="sm" variant="outline">

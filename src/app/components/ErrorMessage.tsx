@@ -26,7 +26,7 @@ export function ErrorMessage({ message, onRetry }: ErrorMessageProps) {
                 To see live stock market data, start the backend server:
               </p>
               <div className="bg-background rounded-lg p-3 font-mono text-sm mb-3">
-                <code className="text-success">pnpm dev:full</code>
+                <code className="text-success">npm run dev:full</code>
               </div>
               <p className="text-xs text-muted-foreground">
                 This will start both the backend (port 3001) and frontend (port 5173)

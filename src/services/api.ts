@@ -120,7 +120,7 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.code === 'ERR_NETWORK' || error.message === 'Network Error') {
-      console.warn('⚠️ Backend offline — falling back to mock data. Run: pnpm dev:full');
+      console.warn('⚠️ Backend offline — falling back to mock data. Run: npm run dev:full');
     } else {
       console.error('API Error:', error.response?.status, error.message);
     }
